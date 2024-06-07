@@ -19,8 +19,8 @@ export default class Mojihugger extends Plugin {
 		console.log("~~~~~mojihugger has arrived~~~~~");
 		// Inject custom CSS for hanging indent
 		addCss();
-		console.log("registering markdown post processor");
-		this.registerMarkdownPostProcessor((element, context) => {
+		console.log("~~~~~registering markdown post processor~~~~~");
+		const postProcessor = (element: HTMLElement, context: any) => {
 			console.log("element:", element);
 			const emojiRegex = /([\u{1F600}-\u{1F64F}])/gu;
 			const matches = element.innerHTML.match(emojiRegex);
@@ -31,8 +31,20 @@ export default class Mojihugger extends Plugin {
 			);
 			console.log("Modified element.innerHTML:", modifiedInnerHTML);
 			element.innerHTML = modifiedInnerHTML;
-		});
+		};
+		this.registerMarkdownPostProcessor(postProcessor);
+		console.log("~~~~~markdown post processor registered~~~~~");
 		console.log("~~~~~mojihugger onload complete~~~~~");
+	}
+
+	onunload(): void {
+		console.log("~~~~~mojihugger onunload~~~~~");
+		if (this.styleElement) {
+			document.head.removeChild(this.styleElement);
+			console.log("~~~~~style element removed~~~~~");
+		}
+		this.registerMarkdownPostProcessor(null);
+		console.log("~~~~~markdown post processor unregistered~~~~~");
 	}
 
 	onunload(): void {
