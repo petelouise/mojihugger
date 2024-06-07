@@ -43,11 +43,18 @@ export default class Mojihugger extends Plugin {
 			document.head.removeChild(this.styleElement);
 			console.log("~~~~~style element removed~~~~~");
 		}
-		this.registerMarkdownPostProcessor(null);
-		console.log("~~~~~markdown post processor unregistered~~~~~");
+		this.registerMarkdownPostProcessor(postProcessor);
+		console.log("~~~~~markdown post processor registered~~~~~");
+		console.log("~~~~~mojihugger onload complete~~~~~");
 	}
 
 	onunload(): void {
 		console.log("~~~~~mojihugger onunload~~~~~");
+		if (this.styleElement) {
+			document.head.removeChild(this.styleElement);
+			console.log("~~~~~style element removed~~~~~");
+		}
+		this.unregisterMarkdownPostProcessor(postProcessor);
+		console.log("~~~~~markdown post processor unregistered~~~~~");
 	}
 }
