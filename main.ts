@@ -14,7 +14,8 @@ function addCss(): void {
 export default class Mojihugger extends Plugin {
 	styleElement: HTMLStyleElement;
 
-	onload() {
+	onload(): void {
+		console.log("~~~~~mojihugger onload~~~~~");
 		console.log("~~~~~mojihugger has arrived~~~~~");
 		// Inject custom CSS for hanging indent
 		addCss();
@@ -31,5 +32,10 @@ export default class Mojihugger extends Plugin {
 			console.log("Modified element.innerHTML:", modifiedInnerHTML);
 			element.innerHTML = modifiedInnerHTML;
 		});
+		console.log("~~~~~mojihugger onload complete~~~~~");
+	}
+
+	onunload(): void {
+		console.log("~~~~~mojihugger onunload~~~~~");
 	}
 }
