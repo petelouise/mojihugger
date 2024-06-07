@@ -20,7 +20,7 @@ export default class Mojihugger extends Plugin {
 		addCss();
 		console.log("registering markdown post processor");
 		this.registerMarkdownPostProcessor((element, context) => {
-			console.log("Original element.innerHTML:", element.innerHTML);
+			console.log("element:", element);
 			const emojiRegex = /([\u{1F600}-\u{1F64F}])/gu;
 			const matches = element.innerHTML.match(emojiRegex);
 			console.log("Matches found:", matches);
