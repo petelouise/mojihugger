@@ -20,11 +20,16 @@ export default class Mojihugger extends Plugin {
 		addCss();
 		console.log("registering markdown post processor");
 		this.registerMarkdownPostProcessor((element, context) => {
+			console.log("Original element.innerHTML:", element.innerHTML);
 			const emojiRegex = /([\u{1F600}-\u{1F64F}])/gu;
-			element.innerHTML = element.innerHTML.replace(
+			const matches = element.innerHTML.match(emojiRegex);
+			console.log("Matches found:", matches);
+			const modifiedInnerHTML = element.innerHTML.replace(
 				emojiRegex,
 				'<span class="emoji">$1</span>'
 			);
+			console.log("Modified element.innerHTML:", modifiedInnerHTML);
+			element.innerHTML = modifiedInnerHTML;
 		});
 	}
 }
